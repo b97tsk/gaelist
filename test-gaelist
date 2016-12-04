@@ -1,0 +1,19 @@
+#!/bin/bash
+
+while read prefix _; do
+    ret=$(wget -nv -O- https://$prefix.appspot.com/2 2>&1)
+    ver=$(echo $ret | grep -o '3\.[0-9]\+\.[0-9]\+')
+    if [[ -n $ver ]]; then
+        echo $prefix: $ver
+        grep -xqs $prefix v$ver.gaelist || echo $prefix >> v$ver.gaelist
+    else
+        err=$(echo $ret | grep -o 'ERROR [0-9]\{3\}:' | grep -o '[0-9]\{3\}')
+        if [[ -n $err ]]; then
+            echo $prefix: ERROR $err
+            grep -xqs $prefix e$err.gaelist || echo $prefix >> e$err.gaelist
+        else
+            echo $prefix: ERROR UNKNOWN
+            grep -xqs $prefix unknown.gaelist || echo $prefix >> unknown.gaelist
+        fi
+    fi
+done
