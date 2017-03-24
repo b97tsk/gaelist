@@ -6,9 +6,9 @@ $ cat greatagent3.appid | ./test-gaelist
 ```
 ```
 $ wc -l v*.gaelist
-   6 v3.1.18.gaelist
+   1 v3.1.18.gaelist
   29 v3.1.23.gaelist
   15 v3.1.5.gaelist
   47 v3.2.0.gaelist
-  97 total
+  92 total
 ```
